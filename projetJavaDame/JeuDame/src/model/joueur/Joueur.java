@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import model.piece.Piece;
+import model.plateau.Case;
 import sockets.EventScanner;
 
 public class Joueur extends Observable{
@@ -14,12 +15,16 @@ public class Joueur extends Observable{
 	private ArrayList<Piece> listePieces = new ArrayList<Piece>();
 	private ArrayList<Piece> listePiecesPrises = new ArrayList<Piece>();
 	
+	private final ArrayList<Case> transformateurDame = new ArrayList<Case>();
+	
 	private EventScanner scanner;
-	public Socket socket;
+	private Socket socket;
 	
 	private Piece pieceSelectionnee = null;
 	
 	private int score;
+	
+	private Joueur ennemi;
 	
 	/**
 	 * Constructeur du joueur
@@ -124,6 +129,31 @@ public class Joueur extends Observable{
 
 	public void setScanner(EventScanner scanner) {
 		this.scanner = scanner;
+	}
+
+
+	public ArrayList<Case> getTransformateurDame() {
+		return transformateurDame;
+	}
+
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+
+
+	public Joueur getEnnemi() {
+		return ennemi;
+	}
+
+
+	public void setEnnemi(Joueur ennemi) {
+		this.ennemi = ennemi;
 	}
 
 

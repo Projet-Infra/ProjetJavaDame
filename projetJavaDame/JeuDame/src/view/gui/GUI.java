@@ -16,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 import controller.Controller;
 import model.core.Main;
 import model.joueur.Joueur;
+import model.piece.Dame;
+import model.piece.Pion;
 import model.plateau.Case;
 import view.View;
 
@@ -143,11 +145,18 @@ public class GUI extends View {
 					cs.setBackground(listeCouleurCases[x* 10 + y]);
 				}
 				else {
-					if(c.getOccupeePar().getProprietaire().equals(this.P1)) {
+					if(c.getOccupeePar().getClass().equals(Pion.class) && c.getOccupeePar().getProprietaire().equals(this.P1)) {
 						cs.setBackground(Color.BLUE);
 					}
-					if(c.getOccupeePar().getProprietaire().equals(this.P2)) {
+					else if(c.getOccupeePar().getClass().equals(Pion.class) && c.getOccupeePar().getProprietaire().equals(this.P2)) {
 						cs.setBackground(Color.RED);
+					}
+					
+					else if(c.getOccupeePar().getClass().equals(Dame.class) && c.getOccupeePar().getProprietaire().equals(this.P1)) {
+						cs.setBackground(Color.CYAN);
+					}
+					else if(c.getOccupeePar().getClass().equals(Dame.class) && c.getOccupeePar().getProprietaire().equals(this.P2)) {
+						cs.setBackground(Color.PINK);
 					}
 				}
 				cs.setOpaque(true);
@@ -189,28 +198,28 @@ public class GUI extends View {
 		        			
 		        			int distance = gui.model.getPieceSelectionnee().getPosition().getCaseNordEst().indexOf(c);
 		        			
-		        			gui.model.getPieceSelectionnee().bouge("Nord-Est", false, distance);
+		        			gui.model.getPieceSelectionnee().bouge("Nord-Est", false, distance + 1);
 		        		
 		        		}
 		        		if(gui.model.getPieceSelectionnee().getPosition().getCaseNordOuest().contains(c)) {
 		        			
 		        			int distance = gui.model.getPieceSelectionnee().getPosition().getCaseNordOuest().indexOf(c);
 		        			
-		        			gui.model.getPieceSelectionnee().bouge("Nord-Ouest", false, distance);
+		        			gui.model.getPieceSelectionnee().bouge("Nord-Ouest", false, distance + 1);
 		        		
 		        		}
 		        		if(gui.model.getPieceSelectionnee().getPosition().getCaseSudEst().contains(c)) {
 		        			
 		        			int distance = gui.model.getPieceSelectionnee().getPosition().getCaseSudEst().indexOf(c);
 		        			
-		        			gui.model.getPieceSelectionnee().bouge("Sud-Est", false, distance);
+		        			gui.model.getPieceSelectionnee().bouge("Sud-Est", false, distance + 1);
 		        		
 		        		}
 		        		if(gui.model.getPieceSelectionnee().getPosition().getCaseSudOuest().contains(c)) {
 		        			
 		        			int distance = gui.model.getPieceSelectionnee().getPosition().getCaseSudOuest().indexOf(c);
 		        			
-		        			gui.model.getPieceSelectionnee().bouge("Sud-Ouest", false, distance);
+		        			gui.model.getPieceSelectionnee().bouge("Sud-Ouest", false, distance + 1);
 		        		
 		        		}
 		        		

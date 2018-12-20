@@ -46,6 +46,8 @@ public class Main {
 		
 		Joueur j1 = new Joueur("Joël", "Cyn"); //Création du joueur 1
 		Joueur j2 = new Joueur("Nadia", "èmmbé"); //Création du joueur 2
+		j1.setEnnemi(j2);
+		j2.setEnnemi(j1);
 		
 		//1 c'est l'id
 		partie = new Partie(1, p1, j1, j2);
@@ -86,6 +88,12 @@ public class Main {
 			
 		}
 		
+		for(int i = 0; i < 10; i ++) {
+			j2.getTransformateurDame().add(p1.getListeCases().get(i));
+		}
+		for(int i = 99; i > 89; i --) {
+			j1.getTransformateurDame().add(p1.getListeCases().get(i));
+		}
 		
 		/*
 		 * Cette boucle permet de calculer les cases adjacentes de toutes les cases présente dans la liste.
@@ -128,90 +136,56 @@ public class Main {
 			
 			
 			if(p1.getListeCases().get(i).getCoordonnees().getX() > 0 && p1.getListeCases().get(i).getCoordonnees().getY() > 0) {
-				int x = p1.getListeCases().get(i).getCoordonnees().getX();
-				int y = p1.getListeCases().get(i).getCoordonnees().getY();
-				
-				if(x > y || x == y) {
-				
-					for(int boucle = 1; boucle < p1.getListeCases().get(i).getCoordonnees().getY() ; boucle++) {
-					
-						p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i - (11 * (boucle))), "Sud-Ouest");	
-					
+
+					for(int boucle = 1; boucle < 10 ; boucle++) {
+						try {
+							p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i - (11 * (boucle))), "Sud-Ouest");	
+						}
+						catch(IndexOutOfBoundsException e) {
+							//Annulation ...
+						}
 					}
-				}
-				if(x < y) {
-					
-					for(int boucle = 1; boucle < p1.getListeCases().get(i).getCoordonnees().getX() ; boucle++) {
-					
-						p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i - (11 * (boucle))), "Sud-Ouest");	
-					
-					}
-				}
+				
 				
 			}
 			if(p1.getListeCases().get(i).getCoordonnees().getX() > 0 && p1.getListeCases().get(i).getCoordonnees().getY() < 9) {
-				int x = p1.getListeCases().get(i).getCoordonnees().getX();
-				int y = p1.getListeCases().get(i).getCoordonnees().getY();
 				
-				if(x > y || x == y) {
 				
-					for(int boucle = 1; boucle < p1.getListeCases().get(i).getCoordonnees().getY() ; boucle++) {
-					
-						p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i - (9 * (boucle))), "Sud-Est");	
-					
-					}
+					for(int boucle = 1; boucle < 10 ; boucle++) {
+						try {
+							p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i - (9 * (boucle))), "Sud-Est");	
+						}
+						catch(IndexOutOfBoundsException e) {
+							//Annulation ...
+						}
 				}		
-				if(x < y) {
-					
-					for(int boucle = 1; boucle < p1.getListeCases().get(i).getCoordonnees().getX() ; boucle++) {
-					
-						p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i - (9 * (boucle))), "Sud-Est");	
-					
-					}
-				}
 			}
 			
 			if(p1.getListeCases().get(i).getCoordonnees().getX() < 9 && p1.getListeCases().get(i).getCoordonnees().getY() > 0) {
-				int x = p1.getListeCases().get(i).getCoordonnees().getX();
-				int y = p1.getListeCases().get(i).getCoordonnees().getY();
 				
-				if(x > y || x == y) {
+					for(int boucle = 1; boucle < 10 ; boucle++) {
+						try{
+							p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i + (9 * (boucle))), "Nord-Ouest");	
+						}
+						catch(IndexOutOfBoundsException e) {
+							//Annulation ...
+						}	
+					}	
 				
-					for(int boucle = 1; boucle < p1.getListeCases().get(i).getCoordonnees().getY() ; boucle++) {
-						System.out.println(p1.getListeCases().get(i).toString()+"   Boucle "+boucle+" Index:"+p1.getListeCases().indexOf(p1.getListeCases().get(i))+"/"+p1.getListeCases().indexOf(p1.getListeCases().get(i + (9 * (boucle)))));
-						p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i + (9 * (boucle))), "Nord-Ouest");	
-					
-					}	
-				}
-				if(x < y) {
-					
-					for(int boucle = 1; boucle < p1.getListeCases().get(i).getCoordonnees().getX() ; boucle++) {
-					
-						p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i + (9 * (boucle))), "Nord-Ouest");	
-					
-					}	
-				}
 			}
 			if(p1.getListeCases().get(i).getCoordonnees().getX() < 9 && p1.getListeCases().get(i).getCoordonnees().getY() < 9) {
-				int x = p1.getListeCases().get(i).getCoordonnees().getX();
-				int y = p1.getListeCases().get(i).getCoordonnees().getY();
 				
-				if(x < y || x == y) {
+					for(int boucle = 1; boucle < 10 ; boucle++) {
+					//System.out.println(p1.getListeCases().get(i).toString()+"   Boucle "+boucle+" Index:"+p1.getListeCases().indexOf(p1.getListeCases().get(i))+"/"+p1.getListeCases().indexOf(p1.getListeCases().get(i + (11 * (boucle)))));
+						try {
+							p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i + (11 * (boucle))), "Nord-Est");	
+						}
+						catch(IndexOutOfBoundsException e) {
+							//Annulation ...
+						}
+					}	
 				
-					for(int boucle = 1; boucle < 9 - p1.getListeCases().get(i).getCoordonnees().getY() ; boucle++) {
-						System.out.println(p1.getListeCases().get(i).toString()+"   Boucle "+boucle+" Index:"+p1.getListeCases().indexOf(p1.getListeCases().get(i))+"/"+p1.getListeCases().indexOf(p1.getListeCases().get(i + (11 * (boucle)))));
-						p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i + (11 * (boucle))), "Nord-Est");	
-					
-					}	
-				}	
-				if(x > y) {
-					
-					for(int boucle = 1; boucle < 9 - p1.getListeCases().get(i).getCoordonnees().getX() ; boucle++) {
-						System.out.println(p1.getListeCases().get(i).toString()+"   Boucle "+boucle+" Index:"+p1.getListeCases().indexOf(p1.getListeCases().get(i))+"/"+p1.getListeCases().indexOf(p1.getListeCases().get(i + (11 * (boucle)))));
-						p1.getListeCases().get(i).construitCaseAdjacentes(p1.getListeCases().get(i + (11 * (boucle))), "Nord-Est");	
-					
-					}	
-				}
+
 			}
 			
 		}
@@ -230,17 +204,17 @@ public class Main {
 					//Socket client
 					Socket socket = new Socket(InetAddress.getLocalHost(),4123);
 					
-					Main.partie.getJ1().socket = socket;
+					Main.partie.getJ1().setSocket(socket);
 					
 			        System.out.println("Demande de connexion joueur");
 
-			        in = new BufferedReader (new InputStreamReader (Main.partie.getJ1().socket.getInputStream()));
+			        in = new BufferedReader (new InputStreamReader (Main.partie.getJ1().getSocket().getInputStream()));
 			        
-					out = new PrintWriter(Main.partie.getJ1().socket.getOutputStream());
+					out = new PrintWriter(Main.partie.getJ1().getSocket().getOutputStream());
 					
 					
 					//Ajout du scanneur au client connecté
-					Main.partie.getJ1().setScanner(new EventScanner(Main.partie.getJ1().socket, Main.partie.getJ1().socket));
+					Main.partie.getJ1().setScanner(new EventScanner(Main.partie.getJ1().getSocket(), Main.partie.getJ1().getSocket()));
 					eventScanner = new Thread(Main.partie.getJ1().getScanner());
 					eventScanner.start(); //Lancement du scanneur
 

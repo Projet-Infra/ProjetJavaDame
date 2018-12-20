@@ -32,6 +32,11 @@ public class Pion extends Piece{
     		//System.out.println("C'est le tour de l'adversaire");
     		return;
     	}
+    	
+    	if(nombreCases > 1) {
+    		System.out.println("Les pions ne peuvent bouger que d'une case");
+    		return;
+    	}
 		/*
 		 * Il doit également vérifier que la case ciblée n'est pas occupée par une pièce alliée.
 		 * 
@@ -43,6 +48,7 @@ public class Pion extends Piece{
 		if(orientation.equals("Nord") || orientation.equals("Sud") || orientation.equals("Est") || orientation.equals("Ouest")) {
 			return;
 		}
+		
 		System.out.println("");
 		
 		Case cible = Pion.traduireStringVersCaseOrientation(this.getPosition(), orientation, nombreCases);
@@ -74,6 +80,9 @@ public class Pion extends Piece{
 						this.getProprietaire().getScanner().envoi("placement", ""+this.getProprietaire().getListePieces().indexOf(this), orientation, ""+nombreCases);
 					}
 					//Main.partie.passe();
+					
+					this.testSiTransformation();
+					
 				}
 				
 				else if(cible.isOccupee() == true && cible.getOccupeePar().getCouleur().equals(this.getCouleur())) {
@@ -112,7 +121,8 @@ public class Pion extends Piece{
 						if(depuisServeur == false) {
 							this.getProprietaire().getScanner().envoi("placement", ""+this.getProprietaire().getListePieces().indexOf(this), orientation, ""+nombreCases);
 						}
-						//Main.partie.passe();
+						
+						this.testSiTransformation();
 						
 					}
 					
@@ -142,6 +152,27 @@ public class Pion extends Piece{
 			this.bougeInterne(orientation, depuisServeur, nombreCases);
 
 		
+		
+	}
+	
+
+	@Override
+	public void testSiTransformation() {
+		if(this.getProprietaire().getTransformateurDame().contains(this.getPosition())) {
+			if(this.getProprietaire().getListePiecesPrises().size() > 0) {
+				Dame dame = new Dame(this.getProprietaire(), this.getCouleur(), this.getPosition());
+				this.getPosition().setOccupeePar(dame);
+				
+				this.getProprietaire().getListePieces().remove(this);
+				this.getProprietaire().getListePieces().add(dame);
+				
+				this.getProprietaire().getListePiecesPrises().remove(0);
+				
+			}
+			else if(this.getProprietaire().getListePiecesPrises().size() == 0) {
+				System.out.println("Transformation en dame impossible | Cause > Pas de pions ennemis en stock");
+			}
+		}
 		
 	}
 	
@@ -187,4 +218,5 @@ public class Pion extends Piece{
 		
 		return c;
 	}
+
 }

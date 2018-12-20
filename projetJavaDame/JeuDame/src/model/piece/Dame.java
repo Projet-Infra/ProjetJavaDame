@@ -43,15 +43,10 @@ public class Dame extends Piece{
 		if(orientation.equals("Nord") || orientation.equals("Sud") || orientation.equals("Est") || orientation.equals("Ouest")) {
 			return;
 		}
+		
 		System.out.println("");
 		
 		Case cible = Pion.traduireStringVersCaseOrientation(this.getPosition(), orientation, nombreCases);
-		
-		for(int i = 0; i < nombreCases - 1; i++) {
-			cible = Pion.traduireStringVersCaseOrientation(cible, orientation, nombreCases);
-		}
-		
-		
 		System.out.println("Coordonnées actuelles >"+this.getPosition().getCoordonnees().toString());
 		
 		try {
@@ -108,7 +103,7 @@ public class Dame extends Piece{
 						this.getPosition().setOccupee(false);
 						this.getPosition().setOccupeePar(null);					
 			
-						this.setPosition(Pion.traduireStringVersCaseOrientation(cible, orientation, nombreCases));
+						this.setPosition(Pion.traduireStringVersCaseOrientation(cible, orientation, 1));
 						
 						this.getPosition().setOccupee(true);
 						this.getPosition().setOccupeePar(this);
@@ -143,9 +138,9 @@ public class Dame extends Piece{
 	 * @param orientation vecteur de mouvement
 	 */
 	@Override
-	public void bouge(String orientation, boolean depuisServeur, int nombreCase) {
+	public void bouge(String orientation, boolean depuisServeur, int nombreCases) {
 		
-			this.bougeInterne(orientation, depuisServeur, nombreCase);
+			this.bougeInterne(orientation, depuisServeur, nombreCases);
 
 		
 		
@@ -166,32 +161,37 @@ public class Dame extends Piece{
 		
 		switch(orientation){
 		case "Nord":
-			c = caseSource.getCaseNord().get(distance - 0);
+			c = caseSource.getCaseNord().get(distance - 1);
 			break;
 		case "Sud":
-			c = caseSource.getCaseSud().get(distance - 0);
+			c = caseSource.getCaseSud().get(distance - 1);
 			break;
 		case "Est":
-			c = caseSource.getCaseEst().get(distance - 0);
+			c = caseSource.getCaseEst().get(distance - 1);
 			break;
 		case "Ouest":
-			c = caseSource.getCaseOuest().get(distance - 0);
+			c = caseSource.getCaseOuest().get(distance - 1);
 			break;
 		case "Nord-Ouest":
-			c = caseSource.getCaseNordOuest().get(distance - 0);
+			c = caseSource.getCaseNordOuest().get(distance - 1);
 			break;
 		case "Nord-Est":
-			c = caseSource.getCaseNordEst().get(distance - 0);
+			c = caseSource.getCaseNordEst().get(distance - 1);
 			break;
 		case "Sud-Ouest":
-			c = caseSource.getCaseSudOuest().get(distance - 0);
+			c = caseSource.getCaseSudOuest().get(distance - 1);
 			break;
 		case "Sud-Est":
-			c = caseSource.getCaseSudEst().get(distance - 0);
+			c = caseSource.getCaseSudEst().get(distance - 1);
 			break;
 	}
 		
 		return c;
 	}
-}
 
+	@Override
+	public void testSiTransformation() {
+		//Pas de transformation
+		
+	}
+}
